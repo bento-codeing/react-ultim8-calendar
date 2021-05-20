@@ -1,6 +1,6 @@
 import React              from "react";
 import Header             from "./dependencies/Header/Header";
-import {useClassReferrer} from "../../hooks/useClassReferer";
+import {useClassReferrer} from "../../hooks/useClassReferrer";
 
 type DatepickerProps = {}
 

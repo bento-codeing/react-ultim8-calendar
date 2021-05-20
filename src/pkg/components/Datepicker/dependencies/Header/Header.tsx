@@ -1,7 +1,7 @@
 import React                                from "react";
 import {ReactComponent as ChevronLeftIcon}  from "../../../../assets/icons/arrow_back_white_24dp.svg";
 import {ReactComponent as ChevronRightIcon} from "../../../../assets/icons/arrow_forward_white_24dp.svg";
-import {ReferrerMethod}                     from "../../../../hooks/useClassReferer";
+import {ReferrerMethod}                     from "../../../../hooks/useClassReferrer";
 
 type HeaderProps = {
   referrer: ReferrerMethod
