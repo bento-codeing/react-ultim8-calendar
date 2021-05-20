@@ -1,10 +1,8 @@
-import React, {useEffect, useRef, useState} from "react";
-import uniqid                               from "uniqid";
-import Header                               from "./dependencies/Header/Header";
+import React              from "react";
+import Header             from "./dependencies/Header/Header";
+import {useClassReferrer} from "../../hooks/useClassReferer";
 
-type DatepickerProps = {
-
-}
+type DatepickerProps = {}
 
 /**
  * Datepicker Functional Component
@@ -12,11 +10,11 @@ type DatepickerProps = {
  * @return {React.FC<DatepickerProps>}
  */
 const Datepicker: React.FC<DatepickerProps> = () => {
-  const { current: uniqidRefValue } = useRef(uniqid());
+  const [referrer] = useClassReferrer();
 
   return (
-    <div className={`ru8c-datepicker-container-${uniqidRefValue}`}>
-      <Header referrer={uniqidRefValue}/>
+    <div className={referrer`ru8c-datepicker-container`}>
+      <Header referrer={referrer}/>
     </div>
   );
 };
