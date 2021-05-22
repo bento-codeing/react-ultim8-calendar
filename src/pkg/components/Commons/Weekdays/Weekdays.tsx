@@ -1,4 +1,4 @@
-import React              from "react";
+import React  from "react";
 import {useClassReferrer} from "../../../hooks/useClassReferrer";
 
 type WeekdaysProps = {}
@@ -9,7 +9,7 @@ type WeekdaysProps = {}
  * @return {React.FC<WeekdaysProps>}
  */
 const Weekdays: React.FC<WeekdaysProps> = () => {
-  const referrer = useClassReferrer();
+  const referrer       = useClassReferrer();
 
   return (
     <div className={referrer`ru8c-weekdays`}>

@@ -1,10 +1,10 @@
-import React from "react";
-import Datepicker        from "./pkg/components/Containers/Datepicker/Datepicker";
+import React      from "react";
+import EntryPoint from "./pkg";
 
 function App() {
   return (
     <div className="App">
-      <Datepicker locale={"en"}/>
+      <EntryPoint locale={"fr"}/>
     </div>
   );
 }

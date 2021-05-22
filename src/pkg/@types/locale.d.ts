@@ -1,3 +1,4 @@
+// Based on Dayjs locales
 declare type Locale =
   "af"
   | "am"

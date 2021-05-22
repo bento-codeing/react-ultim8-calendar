@@ -40,10 +40,10 @@ function ReferrerProvider({children, initial}: IReferrerProvider): JSX.Element {
 /**
  * Custom Hook useReferrer
  */
-function useReferrer({debug = true}): Type {
+function useReferrer(): Type {
   const context: Type = React.useContext(ReferrerRefContext);
   if (context === undefined) {
-    if (debug) throw new Error("useReferrer must be used within a ReferrerProvider");
+    throw new Error("useReferrer must be used within a ReferrerProvider");
   }
   return context;
 }

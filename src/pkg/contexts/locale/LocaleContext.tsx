@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import dayjs                        from "dayjs";
 
 /**
  * Types
@@ -29,6 +30,14 @@ interface ILocaleProvider {
  */
 function LocaleProvider({ children, initial = "en" }: ILocaleProvider): JSX.Element {
   const [locale, setLocale] = useState<Locale>(initial);
+
+  // TODO with loading
+  import(`dayjs/locale/${locale}`)
+    .then(() => {
+      dayjs.locale(locale);
+      // @ts-ignore
+      console.log(dayjs);
+    });
 
   return (
     <LocaleStateContext.Provider value={locale}>
