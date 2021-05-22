@@ -1,8 +1,10 @@
 import React              from "react";
+import uniqid             from "uniqid";
 import Header             from "../../Commons/Header/Header";
 import {useClassReferrer} from "../../../hooks/useClassReferrer";
 import {LocaleProvider}   from "../../../contexts/locale/LocaleContext";
 import Weekdays           from "../../Commons/Weekdays/Weekdays";
+import {ReferrerProvider} from "../../../contexts/referrer/ReferrerContext";
 
 type DatepickerProps = {
   locale: Locale,
@@ -14,15 +16,18 @@ type DatepickerProps = {
  * @return {React.FC<DatepickerProps>}
  */
 const Datepicker: React.FC<DatepickerProps> = ({locale}) => {
-  const [referrer] = useClassReferrer();
+  const uuid: string = uniqid();
+  const referrer     = useClassReferrer(uuid);
 
   return (
-    <LocaleProvider initial={locale}>
-      <div className={referrer`ru8c-datepicker-container`}>
-        <Header referrer={referrer}/>
-        <Weekdays referrer={referrer}/>
-      </div>
-    </LocaleProvider>
+    <ReferrerProvider initial={uuid}>
+      <LocaleProvider initial={locale}>
+        <div className={referrer`ru8c-datepicker-container`}>
+          <Header/>
+          <Weekdays/>
+        </div>
+      </LocaleProvider>
+    </ReferrerProvider>
   );
 };
 

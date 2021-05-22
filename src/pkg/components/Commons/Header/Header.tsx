@@ -1,18 +1,17 @@
 import React                                from "react";
 import {ReactComponent as ChevronLeftIcon}  from "../../../assets/icons/arrow_back_white_24dp.svg";
 import {ReactComponent as ChevronRightIcon} from "../../../assets/icons/arrow_forward_white_24dp.svg";
-import {ReferrerMethod}                     from "../../../hooks/useClassReferrer";
+import {useClassReferrer}                   from "../../../hooks/useClassReferrer";
 
-type HeaderProps = {
-  referrer: ReferrerMethod
-}
+type HeaderProps = {}
 
 /**
  * Header Functional Component
  * @constructor
  * @return {React.FC<HeaderProps>}
  */
-const Header: React.FC<HeaderProps> = ({ referrer }) => {
+const Header: React.FC<HeaderProps> = () => {
+  const referrer = useClassReferrer();
   return (
     <div className={referrer`ru8c-header`}>
       <button className={referrer`ru8c-header__prev-btn`}>

@@ -1,21 +1,15 @@
-import React            from "react";
-import {ReferrerMethod}            from "../../../hooks/useClassReferrer";
-import {useLocaleState} from "../../../contexts/locale/LocaleContext";
+import React              from "react";
+import {useClassReferrer} from "../../../hooks/useClassReferrer";
 
-type WeekdaysProps = {
-  referrer: ReferrerMethod
-}
+type WeekdaysProps = {}
 
 /**
  * Weekdays Functional Component
- * @param {string} className - used to set a class on a higher element tag
  * @constructor
  * @return {React.FC<WeekdaysProps>}
  */
-const Weekdays: React.FC<WeekdaysProps> = ({ referrer }) => {
-  const localeState = useLocaleState();
-
-  console.debug(localeState);
+const Weekdays: React.FC<WeekdaysProps> = () => {
+  const referrer = useClassReferrer();
 
   return (
     <div className={referrer`ru8c-weekdays`}>
