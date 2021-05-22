@@ -1,15 +1,17 @@
 import React              from "react";
-import Header             from "./dependencies/Header/Header";
-import {useClassReferrer} from "../../hooks/useClassReferrer";
+import Header             from "../../Commons/Header/Header";
+import {useClassReferrer} from "../../../hooks/useClassReferrer";
 
-type DatepickerProps = {}
+type DatepickerProps = {
+  locale: Locale,
+}
 
 /**
  * Datepicker Functional Component
  * @constructor
  * @return {React.FC<DatepickerProps>}
  */
-const Datepicker: React.FC<DatepickerProps> = () => {
+const Datepicker: React.FC<DatepickerProps> = ({ locale }) => {
   const [referrer] = useClassReferrer();
 
   return (
