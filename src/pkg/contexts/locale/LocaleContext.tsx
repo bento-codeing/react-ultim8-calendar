@@ -3,8 +3,8 @@ import React, { useMemo, useState } from "react";
 /**
  * Types
  */
-type State = boolean | undefined;
-type Dispatch = ( (bool: boolean) => void ) | undefined;
+type State = Locale | undefined;
+type Dispatch = ( (locale: Locale) => void ) | undefined;
 
 
 /**
@@ -18,18 +18,21 @@ const LocaleDispatchContext = React.createContext<Dispatch>(undefined);
  */
 interface ILocaleProvider {
   children?: React.ReactNode,
+  initial?: Locale,
 }
 
 /**
  * Global Provider
  * @param children
+ * @param initial
  * @constructor
  */
-function LocaleProvider({ children }: ILocaleProvider): JSX.Element {
-  const [authed, setAuthed] = useState<boolean>(false);
+function LocaleProvider({ children, initial = "en" }: ILocaleProvider): JSX.Element {
+  const [locale, setLocale] = useState<Locale>(initial);
+
   return (
-    <LocaleStateContext.Provider value={authed}>
-      <LocaleDispatchContext.Provider value={setAuthed}>
+    <LocaleStateContext.Provider value={locale}>
+      <LocaleDispatchContext.Provider value={setLocale}>
         {children}
       </LocaleDispatchContext.Provider>
     </LocaleStateContext.Provider>
@@ -45,28 +48,30 @@ function useLocaleState(): State {
     // TODO: only in debug mode
     throw new Error("useLocaleState must be used within a LocaleProvider");
   }
+  console.debug(context);
   return context;
 }
 
 
-// /**
-//  * Dispatch hook
-//  */
-// function useAuthDispatch(): Dispatch {
-//   const context: Dispatch = React.useContext(AuthDispatchContext);
-//   if (context === undefined) {
-//     throw new Error("[Tiny] - useAuthDispatch must be used within a AuthProvider");
-//   }
-//   return context;
-// }
-//
-//
-// /**
-//  * Merge state and dispatch hooks
-//  */
-// function useAuth(): Array<any> {
-//   return [useAuthState(), useAuthDispatch()];
-// }
-//
-//
-// export { AuthProvider, useAuth, useAuthState };
+/**
+ * Dispatch hook
+ */
+function useLocaleDispatch(): Dispatch {
+  const context: Dispatch = React.useContext(LocaleDispatchContext);
+  if (context === undefined) {
+    // TODO: only in debug mode
+    throw new Error("useLocaleDispatch must be used within a LocaleProvider");
+  }
+  return context;
+}
+
+
+/**
+ * Merge state and dispatch hooks
+ */
+function useLocale(): Array<any> {
+  return [useLocaleState(), useLocaleDispatch()];
+}
+
+
+export { LocaleProvider, useLocale, useLocaleState };
