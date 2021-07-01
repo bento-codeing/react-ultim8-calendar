@@ -1,11 +1,12 @@
-import React, { useMemo, useState } from "react";
-import dayjs                        from "dayjs";
+import React, {useState} from "react";
+import dayjs             from "dayjs";
+import localeData        from "dayjs/plugin/localeData";
 
 /**
  * Types
  */
 type State = Locale | undefined;
-type Dispatch = ( (locale: Locale) => void ) | undefined;
+type Dispatch = ((locale: Locale) => void) | undefined;
 
 
 /**
@@ -20,23 +21,24 @@ const LocaleDispatchContext = React.createContext<Dispatch>(undefined);
 interface ILocaleProvider {
   children?: React.ReactNode,
   initial?: Locale,
+  onFetchedLocale?: () => void,
 }
 
 /**
  * Global Provider
  * @param children
  * @param initial
+ * @param onFetchedLocale
  * @constructor
  */
-function LocaleProvider({ children, initial = "en" }: ILocaleProvider): JSX.Element {
+function LocaleProvider({children, initial = "en", onFetchedLocale}: ILocaleProvider): JSX.Element {
   const [locale, setLocale] = useState<Locale>(initial);
 
-  // TODO with loading
   import(`dayjs/locale/${locale}`)
     .then(() => {
       dayjs.locale(locale);
-      // @ts-ignore
-      console.log(dayjs);
+      dayjs.extend(localeData);
+      if (onFetchedLocale) onFetchedLocale();
     });
 
   return (
@@ -57,7 +59,6 @@ function useLocaleState(): State {
     // TODO: only in debug mode
     throw new Error("useLocaleState must be used within a LocaleProvider");
   }
-  console.debug(context);
   return context;
 }
 
@@ -83,4 +84,4 @@ function useLocale(): Array<any> {
 }
 
 
-export { LocaleProvider, useLocale, useLocaleState };
+export {LocaleProvider, useLocale, useLocaleState};

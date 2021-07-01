@@ -12,6 +12,7 @@ type HeaderProps = {}
  */
 const Header: React.FC<HeaderProps> = () => {
   const referrer = useClassReferrer();
+
   return (
     <div className={referrer`ru8c-header`}>
       <button className={referrer`ru8c-header__prev-btn`}>

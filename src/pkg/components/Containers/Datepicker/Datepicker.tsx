@@ -1,10 +1,8 @@
 import React              from "react";
-import uniqid             from "uniqid";
 import Header             from "../../Commons/Header/Header";
-import {useClassReferrer} from "../../../hooks/useClassReferrer";
-import {LocaleProvider}   from "../../../contexts/locale/LocaleContext";
 import Weekdays           from "../../Commons/Weekdays/Weekdays";
-import {ReferrerProvider} from "../../../contexts/referrer/ReferrerContext";
+import {useLoadingState}  from "../../../contexts/loading/LoadingContext";
+import {useClassReferrer} from "../../../hooks/useClassReferrer";
 
 type DatepickerProps = {}
 
@@ -14,7 +12,10 @@ type DatepickerProps = {}
  * @return {React.FC<DatepickerProps>}
  */
 const Datepicker: React.FC<DatepickerProps> = () => {
-  const referrer     = useClassReferrer();
+  const referrer = useClassReferrer();
+  const loading = useLoadingState();
+
+  console.debug({loading})
 
   return (
     <div className={referrer`ru8c-datepicker-container`}>

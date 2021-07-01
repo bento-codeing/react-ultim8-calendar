@@ -1,10 +1,10 @@
 /** Description: Loading Context is a simple state context based on hooks */
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 /**
  * Types
  */
-type State = boolean | undefined;
+type State = boolean | null | undefined;
 type Dispatch = ((loading: boolean) => void) | undefined;
 
 
@@ -20,16 +20,23 @@ const LoadingDispatchContext = React.createContext<Dispatch>(undefined);
 interface ILoadingProvider {
   children?: React.ReactNode,
   initial?: State,
+  controlledValue?: State | null,
 }
 
 /**
  * Global Provider
  * @param children
  * @param initial
+ * @param {State} controlledValue - Used to control the state value manually
  * @constructor
  */
-function LoadingProvider({children, initial}: ILoadingProvider): JSX.Element {
-  const [loading, setLoading] = useState<State>(initial);
+function LoadingProvider({children, initial, controlledValue}: ILoadingProvider): JSX.Element {
+  const [loading, setLoading] = useState<State | null>(initial);
+
+  useEffect(() => {
+    if (typeof controlledValue !== "boolean") return; // ignore initial state (i.e. null)
+    setLoading(controlledValue);
+  }, [controlledValue]);
 
   return (
     <LoadingStateContext.Provider value={loading}>
