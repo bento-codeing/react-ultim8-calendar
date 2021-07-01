@@ -1,12 +1,15 @@
-import React, {useState}  from "react";
-import dayjs              from "dayjs";
-import uniqid             from "uniqid";
-import Datepicker         from "./components/Containers/Datepicker/Datepicker";
-import {ReferrerProvider} from "./contexts/referrer/ReferrerContext";
-import {LocaleProvider}   from "./contexts/locale/LocaleContext";
-import {LoadingProvider}  from "./contexts/loading/LoadingContext";
+import React, {useState}              from "react";
+import dayjs                          from "dayjs";
+import uniqid                         from "uniqid";
+import Datepicker                     from "./components/Containers/Datepicker/Datepicker";
+import {ReferrerProvider}             from "./contexts/referrer/ReferrerContext";
+import {LocaleProvider}               from "./contexts/locale/LocaleContext";
+import {LoadingProvider}              from "./contexts/loading/LoadingContext";
+import {ConfigurationContextProvider} from "./contexts/configuration/ConfigurationContext";
 
 type EntryPointProps = {
+  className?: string,
+  classNamePrefix?: string,
   locale: Locale,
   options?: {
     format?: {
@@ -22,7 +25,7 @@ type EntryPointProps = {
  * @constructor
  * @return {React.FC<EntryPointProps>}
  */
-const EntryPoint: React.FC<EntryPointProps> = ({ locale, options }) => {
+const EntryPoint: React.FC<EntryPointProps> = ({ className, classNamePrefix, locale, options }) => {
   const [loading, setLoading] = useState<Boolean|null>(null);
   const uuid: string = uniqid();
 
@@ -31,14 +34,15 @@ const EntryPoint: React.FC<EntryPointProps> = ({ locale, options }) => {
   }
 
   return (
+    <ConfigurationContextProvider initial={{ ...options, classNamePrefix }}>
       <ReferrerProvider initial={uuid}>
-        <LocaleProvider initial={locale} onFetchedLocale={handleFetchedLocale}>
-          {/* @ts-ignore */}
+        <LocaleProvider initial={locale} onFetchedLocale={handleFetchedLocale}> {/* @ts-ignore */}
           <LoadingProvider controlledValue={loading} initial={true}>
-            <Datepicker/>
+            <Datepicker className={className}/>
           </LoadingProvider>
         </LocaleProvider>
       </ReferrerProvider>
+    </ConfigurationContextProvider>
   );
 };
 

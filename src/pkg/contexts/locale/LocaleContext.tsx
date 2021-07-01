@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import dayjs             from "dayjs";
 import localeData        from "dayjs/plugin/localeData";
+import {useMount}        from "../../hooks/useMount";
 
 /**
  * Types
@@ -34,10 +35,11 @@ interface ILocaleProvider {
 function LocaleProvider({children, initial = "en", onFetchedLocale}: ILocaleProvider): JSX.Element {
   const [locale, setLocale] = useState<Locale>(initial);
 
+  dayjs.extend(localeData); // Set locale data plugin at each render to prevent error (FIXME, perfomance)
+
   import(`dayjs/locale/${locale}`)
     .then(() => {
       dayjs.locale(locale);
-      dayjs.extend(localeData);
       if (onFetchedLocale) onFetchedLocale();
     });
 

@@ -1,6 +1,7 @@
 import React              from "react";
 import dayjs              from "dayjs";
 import {useClassReferrer} from "../../../hooks/useClassReferrer";
+import {useLocaleState}   from "../../../contexts/locale/LocaleContext";
 
 type WeekdaysProps = {}
 
@@ -11,6 +12,8 @@ type WeekdaysProps = {}
  */
 const Weekdays: React.FC<WeekdaysProps> = () => {
   const referrer = useClassReferrer();
+  const locale = useLocaleState();
+  console.debug({locale, dayjs})
   const weekdaysShort = dayjs.weekdaysShort() || [];
 
   return (
