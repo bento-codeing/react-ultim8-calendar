@@ -8,6 +8,13 @@ import {LoadingProvider}  from "./contexts/loading/LoadingContext";
 
 type EntryPointProps = {
   locale: Locale,
+  options?: {
+    format?: {
+      date?: string,
+      monthsShort?: boolean,
+      weekdaysMax?: boolean,
+    }
+  }
 }
 
 /**
@@ -15,13 +22,11 @@ type EntryPointProps = {
  * @constructor
  * @return {React.FC<EntryPointProps>}
  */
-const EntryPoint: React.FC<EntryPointProps> = ({ locale }) => {
+const EntryPoint: React.FC<EntryPointProps> = ({ locale, options }) => {
   const [loading, setLoading] = useState<Boolean|null>(null);
   const uuid: string = uniqid();
 
   function handleFetchedLocale() {
-    // @ts-ignore
-    dayjs.locale();
     setLoading(false);
   }
 
