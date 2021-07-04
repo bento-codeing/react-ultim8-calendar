@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import dayjs             from "dayjs";
 import localeData        from "dayjs/plugin/localeData";
-import {useMount}        from "../../hooks/useMount";
 
 /**
  * Types

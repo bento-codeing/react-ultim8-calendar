@@ -15,21 +15,21 @@ const ConfigurationContextStateContext    = React.createContext<State>(undefined
 const ConfigurationContextDispatchContext = React.createContext<Dispatch>(undefined);
 
 /**
- * Interface for global provider
+ * Type for global provider
  */
-interface IConfigurationContextProvider {
+type ConfigurationContextProviderProps = {
   children?: React.ReactNode,
-  initial?: State,
+  value?: State,
 }
 
 /**
  * Global Provider
  * @param children
- * @param initial
+ * @param value
  * @constructor
  */
-function ConfigurationContextProvider({children, initial}: IConfigurationContextProvider): JSX.Element {
-  const [configurationContext, setConfigurationContext] = useState<State>(initial);
+function ConfigurationContextProvider({children, value}: ConfigurationContextProviderProps): JSX.Element {
+  const [configurationContext, setConfigurationContext] = useState<State>(value);
 
   return (
     <ConfigurationContextStateContext.Provider value={configurationContext}>

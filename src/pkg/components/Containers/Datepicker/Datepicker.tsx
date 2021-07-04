@@ -8,6 +8,7 @@ import {useConfigurationContextState} from "../../../contexts/configuration/Conf
 
 type DatepickerProps = {
   className?: string,
+  onChange?: (...args: any[]) => any,
 }
 
 /**
@@ -16,16 +17,15 @@ type DatepickerProps = {
  * @return {React.FC<DatepickerProps>}
  */
 const Datepicker: React.FC<DatepickerProps> = ({className}) => {
-  const referrer = useClassReferrer();
-  const loading  = useLoadingState();
-
-  const {classNamePrefix} = useConfigurationContextState()
+  const referrer          = useClassReferrer();
+  const loading           = useLoadingState();
+  const {classNamePrefix} = useConfigurationContextState();
   console.debug({loading, classNamePrefix});
 
   const classes: string = cx(
     referrer`ru8c-datepicker-container`,
     className,
-    { [`${classNamePrefix}-ru8c-datepicker-container`]: classNamePrefix }
+    {[`${classNamePrefix}-ru8c-datepicker-container`]: classNamePrefix}
   );
 
   return (
