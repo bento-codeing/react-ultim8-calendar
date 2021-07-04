@@ -5,6 +5,8 @@ import {ReferrerProvider}             from "./contexts/referrer/ReferrerContext"
 import {LocaleProvider}               from "./contexts/locale/LocaleContext";
 import {LoadingProvider}              from "./contexts/loading/LoadingContext";
 import {ConfigurationContextProvider} from "./contexts/configuration/ConfigurationContext";
+import "./index.scss";
+import ReactShadowRoot                from "./components/Containers/ReactShadowRoot/ReactShadowRoot";
 
 type EntryPointProps = {
   className?: string,
@@ -34,15 +36,17 @@ const EntryPoint: React.FC<EntryPointProps> = ({className, classNamePrefix, loca
   }
 
   return (
-    <ConfigurationContextProvider value={{...options, classNamePrefix}}>
-      <ReferrerProvider initial={uuid}>
-        <LocaleProvider initial={locale} onFetchedLocale={handleFetchedLocale}> {/* @ts-ignore */}
-          <LoadingProvider controlledValue={loading} initial={true}>
-            <Datepicker className={className} onChange={onChange}/>
-          </LoadingProvider>
-        </LocaleProvider>
-      </ReferrerProvider>
-    </ConfigurationContextProvider>
+    <ReactShadowRoot>
+      <ConfigurationContextProvider value={{...options, classNamePrefix}}>
+        <ReferrerProvider initial={uuid}>
+          <LocaleProvider initial={locale} onFetchedLocale={handleFetchedLocale}> {/* @ts-ignore */}
+            <LoadingProvider controlledValue={loading} initial={true}>
+              <Datepicker className={className} onChange={onChange}/>
+            </LoadingProvider>
+          </LocaleProvider>
+        </ReferrerProvider>
+      </ConfigurationContextProvider>
+    </ReactShadowRoot>
   );
 };
 
